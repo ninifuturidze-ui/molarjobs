@@ -1,26 +1,76 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --blue-900: #0C2D5E;
+  --blue-700: #1A56A0;
+  --blue-500: #2D7DD2;
+  --blue-400: #4D9AE8;
+  --blue-100: #DDEEFF;
+  --blue-50:  #EEF6FF;
+  --teal:     #0AADA8;
+  --teal-50:  #E6F7F7;
+  --amber:    #F59E0B;
+  --green:    #16A34A;
+  --green-50: #DCFCE7;
+  --rose:     #E11D48;
+  --rose-50:  #FFF1F2;
+  --gray-900: #0F1D2E;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-300: #D1D8E4;
+  --gray-100: #F3F7FC;
+  --shadow-sm: 0 1px 3px rgba(12,45,94,0.08);
+  --shadow-md: 0 4px 16px rgba(12,45,94,0.10);
+  --shadow-lg: 0 12px 40px rgba(12,45,94,0.14);
+  --shadow-xl: 0 24px 60px rgba(12,45,94,0.18);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #ffffff;
+  color: var(--gray-900);
+  overflow-x: hidden;
 }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.5); }
+}
+
+.animate-fadeUp   { animation: fadeUp  0.5s ease both; }
+.animate-fadeLeft { animation: fadeLeft 0.6s ease both; }
+.animate-float    { animation: float 5s ease-in-out infinite; }
+.animate-pulse-dot { animation: pulse 2s infinite; }
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }

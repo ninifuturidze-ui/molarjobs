@@ -1,13 +1,17 @@
 import { createClient } from '@supabase/supabase-js'
 
-// These values come from your .env.local file
-const supabaseUrl  = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey  = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// These values come from your .env.local file.
+// App will run with mock data if these are not set.
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://placeholder.supabase.co'
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'placeholder-key'
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
-// ─── TYPE DEFINITIONS ───────────────────────────────────────────
-// These mirror your Supabase database tables
+export const isSupabaseConfigured =
+  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+// ─── TYPE DEFINITIONS ────────────────────────────────────────────
 
 export type Vacancy = {
   id: string

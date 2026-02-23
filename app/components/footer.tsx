@@ -2,16 +2,16 @@ import Link from 'next/link'
 
 const footerLinks = {
   'For Job Seekers': [
-    { label: 'Browse Jobs',   href: '/' },
-    { label: 'Talent Board',  href: '/talent' },
-    { label: 'Map View',      href: '/#map' },
-    { label: 'Salary Guide',  href: '/salary' },
+    { label: 'Browse Jobs',  href: '/' },
+    { label: 'Talent Board', href: '/talent' },
+    { label: 'Map View',     href: '/#map' },
+    { label: 'Salary Guide', href: '/salary' },
   ],
   'For Clinics': [
-    { label: 'Post a Job',     href: '/post-job' },
-    { label: 'Register Clinic',href: '/register' },
-    { label: 'Pricing',        href: '/pricing' },
-    { label: 'Verification',   href: '/verify' },
+    { label: 'Post a Job',      href: '/post-job' },
+    { label: 'Register Clinic', href: '/register' },
+    { label: 'Pricing',         href: '/pricing' },
+    { label: 'Verification',    href: '/verify' },
   ],
   Company: [
     { label: 'About',          href: '/about' },
@@ -34,7 +34,7 @@ export default function Footer() {
               Molar<span style={{ color: 'var(--blue-400)' }}>Jobs</span>
             </div>
             <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', marginTop: 10, maxWidth: 240, lineHeight: 1.6 }}>
-              Georgia's dedicated platform for dental professionals and clinics.
+              Georgia&apos;s dedicated platform for dental professionals and clinics.
             </p>
           </div>
 
@@ -71,4 +71,4 @@ export default function Footer() {
       </div>
     </footer>
   )
-} 
+}

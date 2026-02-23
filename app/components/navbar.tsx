@@ -13,9 +13,9 @@ const navLinks = [
 
 export default function Navbar() {
   const pathname = usePathname()
-  const [scrolled, setScrolled]     = useState(false)
-  const [menuOpen, setMenuOpen]     = useState(false)
-  const [lang, setLang]             = useState<'en' | 'ka'>('en')
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [lang, setLang]         = useState<'en' | 'ka'>('en')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
@@ -95,15 +95,15 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Auth buttons — desktop only */}
+          {/* Auth buttons */}
           <Link
             href="/login"
+            className="desktop-links"
             style={{
               padding: '9px 20px', borderRadius: 8,
               border: '1.5px solid var(--gray-300)', background: 'transparent',
               fontSize: 14, fontWeight: 600, color: 'var(--gray-700)', textDecoration: 'none',
             }}
-            className="desktop-links"
           >
             Log In
           </Link>
@@ -123,16 +123,16 @@ export default function Navbar() {
           {/* Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
+            className="hamburger-btn"
             style={{
               display: 'none', flexDirection: 'column', gap: 5, cursor: 'pointer',
               background: 'none', border: 'none', padding: 6,
             }}
-            className="hamburger-btn"
             aria-label="Open menu"
           >
-            <span style={{ display:'block', width:22, height:2, background:'var(--gray-700)', borderRadius:2, transition:'all 0.3s', transform: menuOpen ? 'rotate(45deg) translateY(7px)' : 'none' }} />
-            <span style={{ display:'block', width:22, height:2, background:'var(--gray-700)', borderRadius:2, transition:'all 0.3s', opacity: menuOpen ? 0 : 1 }} />
-            <span style={{ display:'block', width:22, height:2, background:'var(--gray-700)', borderRadius:2, transition:'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none' }} />
+            <span style={{ display: 'block', width: 22, height: 2, background: 'var(--gray-700)', borderRadius: 2, transition: 'all 0.3s', transform: menuOpen ? 'rotate(45deg) translateY(7px)' : 'none' }} />
+            <span style={{ display: 'block', width: 22, height: 2, background: 'var(--gray-700)', borderRadius: 2, transition: 'all 0.3s', opacity: menuOpen ? 0 : 1 }} />
+            <span style={{ display: 'block', width: 22, height: 2, background: 'var(--gray-700)', borderRadius: 2, transition: 'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none' }} />
           </button>
         </div>
       </nav>

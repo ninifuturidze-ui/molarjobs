@@ -22,7 +22,7 @@ const MOCK_REVIEWS = [
     rating_worklife: 5,
     verified_worker: true,
     helpful_count: 34,
-    clinic_reply: 'Thank you for these kind words! We are proud to support our team's professional development. We hope to grow together for many more years.',
+    clinic_reply: "Thank you for these kind words! We are proud to support our team's professional development. We hope to grow together for many more years.",
     created_at: '2025-11-15',
     position: 'Senior Orthodontist',
     tenure: '3 years',
@@ -407,7 +407,7 @@ export default function ReviewsPage() {
                             ? `${review.position} · ${review.tenure}`
                             : 'Patient review'}
                           {' · '}
-                          {new Date(review.created_at).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
+                          {review.created_at ? new Date(review.created_at).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : ''}
                         </div>
                       </div>
                     </div>

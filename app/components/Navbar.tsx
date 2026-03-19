@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navLinks = [
-  { href: '/',        label: 'Find Jobs' },
-  { href: '/talent',  label: 'Talent Board' },
-  { href: '/reviews', label: 'Reviews' },
-  { href: '/events',  label: 'Events' },
+  { href: '/',                label: 'Find Jobs' },
+  { href: '/talent',          label: 'Talent Board' },
+  { href: '/reviews',         label: 'Reviews' },
+  { href: '/working-rights',  label: 'Working Rights' },
 ]
 
 export default function Navbar() {

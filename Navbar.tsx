@@ -1,29 +1,30 @@
 'use client'
+// app/components/Navbar.tsx
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
-const navLinks = [
-  { href: '/',               label: 'Find Jobs' },
-  { href: '/map',            label: '🗺 Map' },
-  { href: '/talent',         label: 'Talent Board' },
-  { href: '/reviews',        label: 'Reviews' },
-  { href: '/working-rights', label: 'Working Rights' },
-]
-
+import { useLanguage, useT } from './LanguageContext'
 
 export default function Navbar() {
   const pathname = usePathname()
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [lang, setLang]         = useState<'en' | 'ka'>('en')
+  const [scrolled, setScrolled]   = useState(false)
+  const [menuOpen, setMenuOpen]   = useState(false)
+  const { lang, setLang }         = useLanguage()
+  const t                         = useT()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const navLinks = [
+    { href: '/',               label: t('nav_find_jobs') },
+    { href: '/talent',         label: t('nav_talent_board') },
+    { href: '/reviews',        label: t('nav_reviews') },
+    { href: '/working-rights', label: t('nav_working_rights') },
+  ]
 
   return (
     <>
@@ -77,7 +78,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {/* Language toggle */}
+          {/* Language toggle — now wired to context */}
           <div style={{ display: 'flex', background: 'var(--gray-100)', borderRadius: 8, padding: 3, gap: 2 }}>
             {(['en', 'ka'] as const).map(l => (
               <button
@@ -107,7 +108,7 @@ export default function Navbar() {
               fontSize: 14, fontWeight: 600, color: 'var(--gray-700)', textDecoration: 'none',
             }}
           >
-            Log In
+            {t('nav_login')}
           </Link>
           <Link
             href="/post-job"
@@ -119,7 +120,7 @@ export default function Navbar() {
               display: 'flex', alignItems: 'center', gap: 6,
             }}
           >
-            Post a Job
+            {t('nav_post_job')}
           </Link>
 
           {/* Hamburger */}
@@ -163,12 +164,31 @@ export default function Navbar() {
             </Link>
           ))}
           <div style={{ height: 1, background: 'var(--gray-300)', margin: '8px 0' }} />
-          <Link href="/login" onClick={() => setMenuOpen(false)} style={{ padding: '13px 16px', borderRadius: 8, border: '1.5px solid var(--gray-300)', textAlign: 'center', fontSize: 15, fontWeight: 600, color: 'var(--gray-700)', textDecoration: 'none' }}>Log In</Link>
-          <Link href="/post-job" onClick={() => setMenuOpen(false)} style={{ padding: '13px 16px', borderRadius: 8, background: 'linear-gradient(135deg,#2D7DD2,#1A56A0)', textAlign: 'center', fontSize: 15, fontWeight: 700, color: 'white', textDecoration: 'none' }}>Post a Job</Link>
+          {/* Mobile language toggle */}
+          <div style={{ display: 'flex', gap: 8, padding: '4px 16px' }}>
+            {(['en', 'ka'] as const).map(l => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                style={{
+                  padding: '8px 20px', borderRadius: 8, border: '1.5px solid',
+                  borderColor: lang === l ? 'var(--blue-500)' : 'var(--gray-300)',
+                  background: lang === l ? 'var(--blue-50)' : 'white',
+                  color: lang === l ? 'var(--blue-700)' : 'var(--gray-500)',
+                  fontSize: 14, fontWeight: 600, cursor: 'pointer',
+                }}
+              >
+                {l === 'en' ? 'English' : 'ქართული'}
+              </button>
+            ))}
+          </div>
+          <div style={{ height: 1, background: 'var(--gray-300)', margin: '4px 0 8px' }} />
+          <Link href="/login" onClick={() => setMenuOpen(false)} style={{ padding: '13px 16px', borderRadius: 8, border: '1.5px solid var(--gray-300)', textAlign: 'center', fontSize: 15, fontWeight: 600, color: 'var(--gray-700)', textDecoration: 'none' }}>{t('nav_login')}</Link>
+          <Link href="/post-job" onClick={() => setMenuOpen(false)} style={{ padding: '13px 16px', borderRadius: 8, background: 'linear-gradient(135deg,#2D7DD2,#1A56A0)', textAlign: 'center', fontSize: 15, fontWeight: 700, color: 'white', textDecoration: 'none' }}>{t('nav_post_job')}</Link>
         </div>
       )}
 
-      {/* Spacer so content isn't hidden under fixed nav */}
+      {/* Spacer */}
       <div style={{ height: 68 }} />
 
       <style>{`

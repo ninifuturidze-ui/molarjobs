@@ -1,15 +1,16 @@
 ﻿'use client'
 
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
 import Link from 'next/link'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPass, setShowPass] = useState(false)
   const [loading, setLoading] = useState(false)
   const [tab, setTab] = useState('login')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
     await new Promise(r => setTimeout(r, 1200))
@@ -53,10 +54,13 @@ export default function LoginPage() {
               <input type="text" placeholder="Dr. Nino Kapanadze" required style={{ width: '100%', padding: '12px 14px', borderRadius: 10, border: '1.5px solid var(--gray-300)', outline: 'none', fontFamily: 'inherit', fontSize: 14, boxSizing: 'border-box' }} />
             </div>
           )}
+
           <div>
             <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--gray-700)', display: 'block', marginBottom: 6 }}>Email Address</label>
             <input type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} required style={{ width: '100%', padding: '12px 14px', borderRadius: 10, border: '1.5px solid var(--gray-300)', outline: 'none', fontFamily: 'inherit', fontSize: 14, boxSizing: 'border-box' }} />
           </div>
+
+          {/* Password with eye toggle */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
               <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--gray-700)' }}>Password</label>
@@ -66,7 +70,35 @@ export default function LoginPage() {
                 </Link>
               )}
             </div>
-            <input type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required style={{ width: '100%', padding: '12px 14px', borderRadius: 10, border: '1.5px solid var(--gray-300)', outline: 'none', fontFamily: 'inherit', fontSize: 14, boxSizing: 'border-box' }} />
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPass ? 'text' : 'password'}
+                placeholder="••••••••"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                style={{ width: '100%', padding: '12px 44px 12px 14px', borderRadius: 10, border: '1.5px solid var(--gray-300)', outline: 'none', fontFamily: 'inherit', fontSize: 14, boxSizing: 'border-box' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPass(v => !v)}
+                style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, lineHeight: 0, color: '#9CA3AF', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24 }}
+              >
+                {showPass ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                    <path d="m14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
 
           <button

@@ -43,7 +43,14 @@ const STUDENT_QUESTIONS = [
     id: 'location',
     question: 'Where are you based?',
     emoji: '📍',
-    options: CITIES,
+    options: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Gori', 'Other'],
+  },
+  {
+    id: 'district',
+    question: 'Which district in Tbilisi?',
+    emoji: '🗺',
+    options: ['Vake', 'Saburtalo', 'Mtatsminda', 'Isani', 'Samgori', 'Gldani', 'Nadzaladevi', 'Didube', 'Chughureti', 'Old Tbilisi'],
+    showIf: { id: 'city', value: 'Tbilisi' },
   },
   {
     id: 'goal',
@@ -64,7 +71,14 @@ const CLINICIAN_QUESTIONS = [
     id: 'location',
     question: 'Where are you based?',
     emoji: '📍',
-    options: CITIES,
+    options: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Gori', 'Other'],
+  },
+   {
+    id: 'district',
+    question: 'Which district in Tbilisi?',
+    emoji: '🗺',
+    options: ['Vake', 'Saburtalo', 'Mtatsminda', 'Isani', 'Samgori', 'Gldani', 'Nadzaladevi', 'Didube', 'Chughureti', 'Old Tbilisi'],
+    showIf: { id: 'city', value: 'Tbilisi' },
   },
   {
     id: 'goal',
@@ -117,14 +131,22 @@ export default function LoginPage() {
     if (animating) return
     setAnimating(true)
     const qId = questions[currentQ].id
-    setAnswers(prev => ({ ...prev, [qId]: value }))
+    const newAnswers = { ...answers, [qId]: value }
+    setAnswers(newAnswers)
 
     setTimeout(() => {
-      if (currentQ < questions.length - 1) {
-        setCurrentQ(prev => prev + 1)
+      let nextQ = currentQ + 1
+      // Skip district question if city is not Tbilisi
+      if (questions[nextQ]?.showIf) {
+        const { id, value: required } = questions[nextQ].showIf!
+        if (newAnswers[id] !== required) {
+          nextQ++
+        }
+      }
+      if (nextQ < questions.length) {
+        setCurrentQ(nextQ)
         setAnimating(false)
       } else {
-        // Done with questions
         if (userType === 'student') {
           setStep('working-rights')
           setRightsIdx(0)

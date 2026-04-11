@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 // ─── MOCK JOB DATA WITH COORDINATES ─────────────────────────────
 const JOBS = [
@@ -113,10 +114,13 @@ const JOBS = [
 
 type Job = typeof JOBS[0]
 
-export default function MapPage() {
+function MapPage() {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<unknown>(null)
   const markersRef = useRef<unknown[]>([])
+  const searchParams = useSearchParams()
+const cityParam = searchParams.get('city')
+const modeParam = searchParams.get('mode')
   const [selected, setSelected] = useState<Job | null>(null)
   const [filterType, setFilterType] = useState<'all' | 'full-time' | 'part-time'>('all')
   const [search, setSearch] = useState('')
@@ -128,6 +132,7 @@ export default function MapPage() {
     if (search && !j.title.toLowerCase().includes(search.toLowerCase()) &&
         !j.clinic.toLowerCase().includes(search.toLowerCase()) &&
         !j.city.toLowerCase().includes(search.toLowerCase())) return false
+        if (cityParam && j.city.toLowerCase() !== cityParam.toLowerCase()) return false
     return true
   })
 
@@ -473,5 +478,12 @@ export default function MapPage() {
         }
       `}</style>
     </div>
+  )
+}
+export default function MapPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading map…</div>}>
+      <MapPage />
+    </Suspense>
   )
 }

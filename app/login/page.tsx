@@ -245,7 +245,7 @@ export default function LoginPage() {
       setConfetti(false)
       // Redirect to map with city filter
       const city = answers['location'] || 'Tbilisi'
-      router.push(`/map?city=${encodeURIComponent(city)}`)
+      router.push(`/user?city=${encodeURIComponent(city)}`)
     }, 2200)
   }
 
